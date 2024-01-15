@@ -5,7 +5,7 @@ class Card:
         self.value = value
         self.color = color
     def __str__(self):
-        return f'{self.value, self.color}'
+        return f'|{self.value} {self.color}|'
 
 card_0_r = Card(0, 'red')
 card_1_r = Card(1, 'red')
@@ -96,11 +96,11 @@ cards = [card_0_r,
         card_9_b,
         ]
 
-def showing_cards(cards):
+def showing_cards(cards, owner):
     string = ''
     for i in range(len(cards)):
         string = string + f'|{cards[i].value} {cards[i].color}|'
-    print(string)
+    print(f'{owner} - {string}')
 
 def create_deck(cards):
     deck = []
@@ -115,6 +115,17 @@ def create_deck(cards):
 my_cards = create_deck(cards)
 bot_cards = create_deck(cards)
 
-showing_cards(my_cards)
-showing_cards(bot_cards)
-showing_cards(cards)
+showing_cards(my_cards, 'I')
+showing_cards(bot_cards, 'Bot')
+
+current_card = random.choice(cards)
+cards.remove(current_card)
+print(current_card)
+
+
+print('Choose a card')
+chosen_number = int(input())
+current_card = my_cards[chosen_number - 1]
+my_cards.remove(current_card)
+print(current_card)
+showing_cards(my_cards, 'I')
