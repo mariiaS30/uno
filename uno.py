@@ -112,10 +112,10 @@ def create_deck(cards):
 
 
 
-my_cards = create_deck(cards)
+player_cards = create_deck(cards)
 bot_cards = create_deck(cards)
 
-showing_cards(my_cards, 'I')
+showing_cards(player_cards, 'I')
 showing_cards(bot_cards, 'Bot')
 
 current_card = random.choice(cards)
@@ -123,9 +123,32 @@ cards.remove(current_card)
 print(current_card)
 
 
-print('Choose a card')
-chosen_number = int(input())
-current_card = my_cards[chosen_number - 1]
-my_cards.remove(current_card)
+def player_step(current_card):
+    print('Choose a card')
+    chosen_number = int(input())
+    while  chosen_number != 0 and player_cards[chosen_number - 1].value != current_card.value and player_cards[chosen_number - 1].color != current_card.color:
+        print('Wrong card, please choose different one.')
+        chosen_number = int(input())
+    if chosen_number == 0: #Берем карту
+        adding_card = random.choice(cards)
+        cards.remove(adding_card)
+        print('You took:')
+        print(adding_card)
+        if adding_card.value == current_card.value or adding_card.color == current_card.color:
+            current_card = adding_card
+            
+        else:
+            player_cards.append(adding_card)
+            return current_card #Пропуск хода
+
+    else:
+        current_card = player_cards[chosen_number - 1]
+        player_cards.remove(current_card)
+    return current_card
+
+#Ход игрока
+current_card = player_step(current_card)
+print('Playing card')    
 print(current_card)
-showing_cards(my_cards, 'I')
+showing_cards(player_cards, 'I')
+
