@@ -146,9 +146,38 @@ def player_step(current_card):
         player_cards.remove(current_card)
     return current_card
 
+
+def bot_step(current_card):
+    for i in range (len(bot_cards)):
+        if bot_cards[i].value == current_card.value or bot_cards[i].color == current_card.color:
+            current_card = bot_cards[i]
+            bot_cards.remove(bot_cards[i])
+            return current_card
+        
+    adding_card = random.choice(cards)
+    cards.remove(adding_card)
+    print('Bot took')
+    print(adding_card)
+    if adding_card.value == current_card.value or adding_card.color == current_card.color:
+        return adding_card
+
+    else:
+        bot_cards.append(adding_card)
+        return current_card #Пропуск хода
+
+
+            
+
 #Ход игрока
 current_card = player_step(current_card)
 print('Playing card')    
 print(current_card)
 showing_cards(player_cards, 'I')
+
+
+#ход бота
+current_card = bot_step(current_card)
+print('Playing card')    
+print(current_card)
+showing_cards(bot_cards, 'Bot')
 
