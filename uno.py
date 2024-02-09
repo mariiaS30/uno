@@ -96,6 +96,8 @@ cards = [card_0_r,
         card_9_b,
         ]
 
+left_cards = []
+
 def showing_cards(cards, owner):
     string = ''
     for i in range(len(cards)):
@@ -115,23 +117,27 @@ def create_deck(cards):
 player_cards = create_deck(cards)
 bot_cards = create_deck(cards)
 
-showing_cards(player_cards, 'I')
-showing_cards(bot_cards, 'Bot')
 
 current_card = random.choice(cards)
 cards.remove(current_card)
+left_cards.append(current_card)
 print(current_card)
 
 
 def player_step(current_card):
+    showing_cards(player_cards, 'I')
     print('Choose a card')
     chosen_number = int(input())
+    while chosen_number > len(player_cards) or chosen_number < 0:
+        print('Wrong number, please choose diffrent one.')
+        chosen_number = int(input())
     while  chosen_number != 0 and player_cards[chosen_number - 1].value != current_card.value and player_cards[chosen_number - 1].color != current_card.color:
         print('Wrong card, please choose different one.')
         chosen_number = int(input())
     if chosen_number == 0: #Берем карту
         adding_card = random.choice(cards)
         cards.remove(adding_card)
+        left_cards.append(adding_card)
         print('You took:')
         print(adding_card)
         if adding_card.value == current_card.value or adding_card.color == current_card.color:
@@ -144,20 +150,24 @@ def player_step(current_card):
     else:
         current_card = player_cards[chosen_number - 1]
         player_cards.remove(current_card)
+        left_cards.append(current_card)
     return current_card
 
 
 def bot_step(current_card):
+    #showing_cards(bot_cards, 'Bot')
     for i in range (len(bot_cards)):
         if bot_cards[i].value == current_card.value or bot_cards[i].color == current_card.color:
             current_card = bot_cards[i]
             bot_cards.remove(bot_cards[i])
+            left_cards.append(current_card)
             return current_card
         
     adding_card = random.choice(cards)
     cards.remove(adding_card)
-    print('Bot took')
-    print(adding_card)
+    left_cards.append(adding_card)
+    # print('Bot took')
+    # print(adding_card)
     if adding_card.value == current_card.value or adding_card.color == current_card.color:
         return adding_card
 
@@ -168,16 +178,29 @@ def bot_step(current_card):
 
             
 
-#Ход игрока
-current_card = player_step(current_card)
-print('Playing card')    
-print(current_card)
-showing_cards(player_cards, 'I')
+while len(player_cards) != 0 and len(bot_cards) != 0:
+    if len(cards) == 0:
+        cards = left_cards
+        print('Cards changed')
+    #Ход игрока
+    current_card = player_step(current_card)
+    print('Playing card')    
+    print(current_card)
+    showing_cards(player_cards, 'I')
+    #showing_cards(left_cards, 'left')
+    print('........................................................')
+
+    #ход бота
+    current_card = bot_step(current_card)
+    print('Playing card')    
+    print(current_card)
+    #showing_cards(bot_cards, 'Bot')
+    #showing_cards(left_cards, 'left')
+    
+if len(player_cards) == 0:
+    print('You won!')
+else:
+    print('Bot won!')   
 
 
-#ход бота
-current_card = bot_step(current_card)
-print('Playing card')    
-print(current_card)
-showing_cards(bot_cards, 'Bot')
-
+#Дописать кто выиграл. Что делать если колода закончилась раньше. Добавить доп карты. Добавить выбор правил. Добавить картинки.
