@@ -17,6 +17,8 @@ card_6_r = Card(6, 'red')
 card_7_r = Card(7, 'red')
 card_8_r = Card(8, 'red')
 card_9_r = Card(9, 'red')
+card_skip_r = Card('skip', 'red')
+card_add2_r = Card('add-2', 'red')
 
 card_0_g = Card(0, 'green')
 card_1_g = Card(1, 'green')
@@ -28,6 +30,9 @@ card_6_g = Card(6, 'green')
 card_7_g = Card(7, 'green')
 card_8_g = Card(8, 'green')
 card_9_g = Card(9, 'green')
+card_skip_g = Card('skip', 'green')
+card_add2_g = Card('add-2', 'green')
+
 
 card_0_y = Card(0, 'yellow')
 card_1_y = Card(1, 'yellow')
@@ -39,6 +44,8 @@ card_6_y = Card(6, 'yellow')
 card_7_y = Card(7, 'yellow')
 card_8_y = Card(8, 'yellow')
 card_9_y = Card(9, 'yellow')
+card_skip_y = Card('skip', 'yellow')
+card_add2_y = Card('add-2', 'yellow')
 
 card_0_b = Card(0, 'blue')
 card_1_b = Card(1, 'blue')
@@ -50,6 +57,22 @@ card_6_b = Card(6, 'blue')
 card_7_b = Card(7, 'blue')
 card_8_b = Card(8, 'blue')
 card_9_b = Card(9, 'blue')
+card_skip_b = Card('skip', 'blue')
+card_add2_b = Card('add-2', 'blue')
+
+card_color_1 = Card('color', 'color')
+card_color_2 = Card('color', 'color')
+card_color_3 = Card('color', 'color')
+card_color_4 = Card('color', 'color')
+
+card_color_add4_1 = Card('color', 'color')
+card_color_add4_2 = Card('color', 'color')
+card_color_add4_3 = Card('color', 'color')
+card_color_add4_4 = Card('color', 'color')
+
+
+
+
 
 cards = [card_0_r,
         card_2_r,
@@ -61,6 +84,8 @@ cards = [card_0_r,
         card_7_r,
         card_8_r,
         card_9_r,
+        card_skip_r,
+        card_add2_r,
 
         card_0_g, 
         card_1_g, 
@@ -72,6 +97,8 @@ cards = [card_0_r,
         card_7_g, 
         card_8_g, 
         card_9_g, 
+        card_skip_g,
+        card_add2_g,
 
         card_0_y,
         card_1_y,
@@ -83,6 +110,8 @@ cards = [card_0_r,
         card_7_y,
         card_8_y,
         card_9_y,
+        card_skip_y,
+        card_add2_y,
 
         card_0_b,
         card_1_b,
@@ -94,6 +123,18 @@ cards = [card_0_r,
         card_7_b,
         card_8_b,
         card_9_b,
+        card_skip_b,
+        card_add2_b, 
+
+        card_color_1,
+        card_color_2, 
+        card_color_3,
+        card_color_4,
+
+        card_color_add4_1, 
+        card_color_add4_2, 
+        card_color_add4_3, 
+        card_color_add4_4
         ]
 
 left_cards = []
@@ -203,4 +244,4 @@ else:
     print('Bot won!')   
 
 
-#Дописать кто выиграл. Что делать если колода закончилась раньше. Добавить доп карты. Добавить выбор правил. Добавить картинки.
+#Добавить доп карты. Добавить выбор правил. Добавить картинки.
