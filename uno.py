@@ -85,7 +85,7 @@ cards = [card_0_r,
         card_8_r,
         card_9_r,
         card_skip_r,
-        card_add2_r,
+        # card_add2_r,
 
         card_0_g, 
         card_1_g, 
@@ -98,7 +98,7 @@ cards = [card_0_r,
         card_8_g, 
         card_9_g, 
         card_skip_g,
-        card_add2_g,
+        # card_add2_g,
 
         card_0_y,
         card_1_y,
@@ -111,7 +111,7 @@ cards = [card_0_r,
         card_8_y,
         card_9_y,
         card_skip_y,
-        card_add2_y,
+        # card_add2_y,
 
         card_0_b,
         card_1_b,
@@ -124,20 +124,21 @@ cards = [card_0_r,
         card_8_b,
         card_9_b,
         card_skip_b,
-        card_add2_b, 
+        # card_add2_b, 
 
-        card_color_1,
-        card_color_2, 
-        card_color_3,
-        card_color_4,
+        # card_color_1,
+        # card_color_2, 
+        # card_color_3,
+        # card_color_4,
 
-        card_color_add4_1, 
-        card_color_add4_2, 
-        card_color_add4_3, 
-        card_color_add4_4
-        ]
+        # card_color_add4_1, 
+        # card_color_add4_2, 
+        # card_color_add4_3, 
+        # card_color_add4_4
+         ]
 
 left_cards = []
+#owner_skip = [] #Показатель кто положил карту пропуск хода
 
 def showing_cards(cards, owner):
     string = ''
@@ -167,6 +168,11 @@ print(current_card)
 
 def player_step(current_card):
     showing_cards(player_cards, 'I')
+
+    # if current_card.value == 'skip':
+    #     print('Skip')
+    #     return current_card
+
     print('Choose a card')
     chosen_number = int(input())
     while chosen_number > len(player_cards) or chosen_number < 0:
@@ -183,6 +189,9 @@ def player_step(current_card):
         print(adding_card)
         if adding_card.value == current_card.value or adding_card.color == current_card.color:
             current_card = adding_card
+            if adding_card.vaue == 'skip':
+                print(adding_card)
+                current_card = player_step(current_card)
             
         else:
             player_cards.append(adding_card)
@@ -192,25 +201,35 @@ def player_step(current_card):
         current_card = player_cards[chosen_number - 1]
         player_cards.remove(current_card)
         left_cards.append(current_card)
+        if current_card.value == 'skip':
+            print(current_card)
+            current_card = player_step(current_card)
     return current_card
 
 
 def bot_step(current_card):
-    #showing_cards(bot_cards, 'Bot')
+    # showing_cards(bot_cards, 'Bot')
     for i in range (len(bot_cards)):
         if bot_cards[i].value == current_card.value or bot_cards[i].color == current_card.color:
             current_card = bot_cards[i]
             bot_cards.remove(bot_cards[i])
             left_cards.append(current_card)
+            if current_card.value == 'skip':
+                print(current_card)
+                current_card = bot_step(current_card)
             return current_card
         
     adding_card = random.choice(cards)
     cards.remove(adding_card)
-    left_cards.append(adding_card)
     # print('Bot took')
     # print(adding_card)
     if adding_card.value == current_card.value or adding_card.color == current_card.color:
-        return adding_card
+        left_cards.append(adding_card)
+        if adding_card.value == 'skip':
+            print(adding_card)
+            current_card = adding_card
+            current_card = bot_step(current_card )
+        return current_card
 
     else:
         bot_cards.append(adding_card)
