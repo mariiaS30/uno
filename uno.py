@@ -65,10 +65,10 @@ card_color_2 = Card('color', 'color')
 card_color_3 = Card('color', 'color')
 card_color_4 = Card('color', 'color')
 
-card_color_add4_1 = Card('color', 'color')
-card_color_add4_2 = Card('color', 'color')
-card_color_add4_3 = Card('color', 'color')
-card_color_add4_4 = Card('color', 'color')
+card_color_add4_1 = Card('add-4-color', 'color')
+card_color_add4_2 = Card('add-4-color', 'color')
+card_color_add4_3 = Card('add-4-color', 'color')
+card_color_add4_4 = Card('add-4-color', 'color')
 
 
 
@@ -162,6 +162,8 @@ bot_cards = create_deck(cards)
 
 
 current_card = random.choice(cards)
+while current_card.value == 'skip' or current_card.value == 'add-2' or current_card.value == 'color' or current_card.value == 'add-4-color':
+    current_card = random.choice(cards)
 cards.remove(current_card)
 left_cards.append(current_card)
 print(current_card)
@@ -258,6 +260,26 @@ def player_step(current_card):
 
 def bot_step(current_card):
     # showing_cards(bot_cards, 'Bot')
+
+    if current_card.value == 'add-2'and count_add_cards[0] != 0: #если боту положили карту +2
+        for i in range (len(bot_cards)):
+            if bot_cards[i].value == 'add-2': #ответная +2
+                current_card = bot_cards[i]
+                bot_cards.remove(bot_cards[i])
+                left_cards.append(current_card)
+                count_add_cards[0] = count_add_cards[0] + 2
+                return current_card
+            
+        for i in range (count_add_cards[0]): #бот берёт карты '+2'
+            adding_card = random.choice(cards)
+            cards.remove(adding_card)
+            bot_cards.append(adding_card)
+            print('Bot took:')
+            print(adding_card)
+        count_add_cards[0] = 0
+        return current_card
+
+
     for i in range (len(bot_cards)):
         if bot_cards[i].value == current_card.value or bot_cards[i].color == current_card.color:
             current_card = bot_cards[i]
@@ -266,9 +288,11 @@ def bot_step(current_card):
             if current_card.value == 'skip':
                 print(current_card)
                 current_card = bot_step(current_card)
+            if current_card.value == 'add-2':
+                count_add_cards[0] = count_add_cards[0] + 2
             return current_card
-        
-    adding_card = random.choice(cards)
+
+    adding_card = random.choice(cards) #у бота нет карт для хода
     cards.remove(adding_card)
     # print('Bot took')
     # print(adding_card)
@@ -312,5 +336,5 @@ else:
     print('Bot won!')   
 
 
-#Добавить доп карты. Добавить выбор правил. Добавить картинки. Исправить чтобы первая карта не была +2 или +4 или скип.
+#Добавить доп карты. Добавить картинки.
 #Если не хватает карт для +2, то смешать колоды. 
