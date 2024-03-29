@@ -236,7 +236,12 @@ def player_step(current_card):
             if adding_card.value == 'skip':
                 print(adding_card)
                 current_card = player_step(current_card)
-            
+
+            if adding_card.value == 'add-2':
+                print(adding_card)
+                count_add_cards[0] = count_add_cards[0] + 2
+
+        
         else:
             player_cards.append(adding_card)
             return current_card #Пропуск хода
