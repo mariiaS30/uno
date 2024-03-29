@@ -235,11 +235,14 @@ def player_step(current_card):
 
             if adding_card.value == 'skip':
                 print(adding_card)
+                left_cards.append(adding_card)
                 current_card = player_step(current_card)
 
             if adding_card.value == 'add-2':
                 print(adding_card)
                 count_add_cards[0] = count_add_cards[0] + 2
+                left_cards.append(adding_card)
+                current_card = adding_card
 
         
         else:
