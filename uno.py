@@ -254,9 +254,9 @@ def player_step(current_card):
             color = input()
             while color != 'r' and color != 'g' and color != 'b' and color != 'y':
                 print('Wrong color, please choose different color.')
-         
+                color = input()
+            current_card.color = color
     return current_card
-
 
 
 
