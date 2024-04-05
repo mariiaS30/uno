@@ -260,6 +260,12 @@ def player_step(current_card):
 
         if current_card.value == 'add-2':
             count_add_cards[0] = count_add_cards[0] + 2
+
+        if current_card.value == 'color':
+            print('Please, choose a color. Red(r), Green(g), Blue(b), or Yellow(y).')
+            color = input()
+            while color != 'r' and color != 'g' and color != 'b' and color != 'y':
+                print('Wrong color, please choose different color.')
          
     return current_card
 
