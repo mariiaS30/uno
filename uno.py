@@ -169,18 +169,6 @@ left_cards.append(current_card)
 print(current_card)
 
 
-# def adding_plus_two_cards(player, bot):
-#     for i in range (2):
-#                 adding_card = random.choice(cards)
-#                 cards.remove(adding_card)
-#                 add_new_cards.append(adding_card)
-
-#     if card_add2_b in bot or card_add2_y in bot or card_add2_g in bot or card_add2_r in bot:
-
-
-
-
-
 def player_step(current_card):
 
     showing_cards(player_cards, 'I')
@@ -229,7 +217,7 @@ def player_step(current_card):
         print('You took:')
         print(adding_card)
 
-        if adding_card.value == current_card.value or adding_card.color == current_card.color:
+        if adding_card.value == current_card.value or adding_card.color == current_card.color: #when adding card and we put it 
             current_card = adding_card
             left_cards.append(adding_card)
 
