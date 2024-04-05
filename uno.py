@@ -259,7 +259,7 @@ def player_step(current_card):
     return current_card
 
 
-
+#сделать выбор цветной через рандом
 def bot_step(current_card):
     # showing_cards(bot_cards, 'Bot')
 
