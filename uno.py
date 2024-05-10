@@ -126,10 +126,10 @@ cards = [card_0_r,
         card_skip_b,
         card_add2_b, 
 
-        # card_color_1,
-        # card_color_2, 
-        # card_color_3,
-        # card_color_4,
+        card_color_1,
+        card_color_2, 
+        card_color_3,
+        card_color_4,
 
         # card_color_add4_1, 
         # card_color_add4_2, 
@@ -167,18 +167,6 @@ while current_card.value == 'skip' or current_card.value == 'add-2' or current_c
 cards.remove(current_card)
 left_cards.append(current_card)
 print(current_card)
-
-
-# def adding_plus_two_cards(player, bot):
-#     for i in range (2):
-#                 adding_card = random.choice(cards)
-#                 cards.remove(adding_card)
-#                 add_new_cards.append(adding_card)
-
-#     if card_add2_b in bot or card_add2_y in bot or card_add2_g in bot or card_add2_r in bot:
-
-
-
 
 
 def player_step(current_card):
@@ -229,7 +217,7 @@ def player_step(current_card):
         print('You took:')
         print(adding_card)
 
-        if adding_card.value == current_card.value or adding_card.color == current_card.color:
+        if adding_card.value == current_card.value or adding_card.color == current_card.color: #when adding card and we put it 
             current_card = adding_card
             left_cards.append(adding_card)
 
@@ -266,12 +254,12 @@ def player_step(current_card):
             color = input()
             while color != 'r' and color != 'g' and color != 'b' and color != 'y':
                 print('Wrong color, please choose different color.')
-         
+                color = input()
+            current_card.color = color
     return current_card
 
 
-
-
+#сделать выбор цветной через рандом
 def bot_step(current_card):
     # showing_cards(bot_cards, 'Bot')
 
@@ -288,8 +276,8 @@ def bot_step(current_card):
             adding_card = random.choice(cards)
             cards.remove(adding_card)
             bot_cards.append(adding_card)
-            print('Bot took:')
-            print(adding_card)
+            # print('Bot took:')
+            # print(adding_card)
         count_add_cards[0] = 0
         return current_card
 
@@ -316,6 +304,9 @@ def bot_step(current_card):
             print(adding_card)
             current_card = adding_card
             current_card = bot_step(current_card )
+        if adding_card.value == 'add-2':
+            current_card = adding_card
+            count_add_cards[0] = count_add_cards[0] + 2
         return current_card
 
     else:
@@ -326,7 +317,7 @@ def bot_step(current_card):
             
 
 while len(player_cards) != 0 and len(bot_cards) != 0:
-    if len(cards) == 0:
+    if len(cards) < count_add_cards[0]:
         cards = left_cards
         print('Cards changed')
     #Ход игрока
@@ -337,6 +328,9 @@ while len(player_cards) != 0 and len(bot_cards) != 0:
     #showing_cards(left_cards, 'left')
     print('........................................................')
 
+    if len(cards) < count_add_cards[0]:
+        cards = left_cards
+        print('Cards changed')
     #ход бота
     current_card = bot_step(current_card)
     print('Playing card')    
