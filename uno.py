@@ -131,10 +131,10 @@ cards = [card_0_r,
         card_color_3,
         card_color_4,
 
-        # card_color_add4_1, 
-        # card_color_add4_2, 
-        # card_color_add4_3, 
-        # card_color_add4_4
+        card_color_add4_1, 
+        card_color_add4_2, 
+        card_color_add4_3, 
+        card_color_add4_4
          ]
 
 left_cards = []
@@ -197,6 +197,33 @@ def player_step(current_card):
         left_cards.append(current_card) 
         count_add_cards[0] = count_add_cards[0] + 2 #увеличиваем счетчик карт
         return current_card
+      
+      #=================================== начало + 4
+    if current_card.value == 'add-4-color'and count_add_cards[0] != 0: #если текущая +4
+        print(f'Choose +4 card or take {count_add_cards[0]} cards.')
+        chosen_number = int(input())
+
+        while chosen_number != 0 and player_cards[chosen_number -1].value != 'add-4-color':
+            print('Wrong card, please choose different one.')
+            chosen_number = int(input())
+
+        
+        if chosen_number == 0: #если решили взять +4 карты
+            for i in range (count_add_cards[0]):
+                adding_card = random.choice(cards)
+                cards.remove(adding_card)
+                player_cards.append(adding_card)
+                print('You took:')
+                print(adding_card)
+            count_add_cards[0] = 0 
+            return current_card
+
+        current_card = player_cards[chosen_number - 1] #кладем ответную +4 
+        player_cards.remove(current_card)
+        left_cards.append(current_card) 
+        count_add_cards[0] = count_add_cards[0] + 4 #увеличиваем счетчик карт
+        return current_card
+      #=================================== конец + 4
       
 
     print('Choose a card') 
