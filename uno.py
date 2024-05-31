@@ -222,6 +222,22 @@ def player_step(current_card):
         player_cards.remove(current_card)
         left_cards.append(current_card) 
         count_add_cards[0] = count_add_cards[0] + 4 #увеличиваем счетчик карт
+
+        #print(adding_card)
+        print('Please, choose a color. Red(r), Green(g), Blue(b), or Yellow(y).')
+        color = input()
+        while color != 'r' and color != 'g' and color != 'b' and color != 'y':
+            print('Wrong color, please choose different color.')
+            color = input()
+        if color == 'r':
+            current_card.color = 'red'
+        elif color == 'g':
+            current_card.color = 'green'
+        elif color == 'b':
+            current_card.color = 'blue'
+        elif color == 'y':
+            current_card.color = 'yellow' 
+        
         return current_card
       #=================================== конец + 4
       
@@ -233,7 +249,7 @@ def player_step(current_card):
         print('Wrong number, please choose diffrent one.')
         chosen_number = int(input())
 
-    while  chosen_number != 0 and player_cards[chosen_number - 1].value != current_card.value and player_cards[chosen_number - 1].color != current_card.color and player_cards[chosen_number - 1].value != 'color':
+    while  chosen_number != 0 and player_cards[chosen_number - 1].value != current_card.value and player_cards[chosen_number - 1].color != current_card.color and player_cards[chosen_number - 1].value != 'color' and player_cards[chosen_number - 1].value != 'add-4-color':
         print('Wrong card, please choose different one.')
         chosen_number = int(input())
 
@@ -244,22 +260,22 @@ def player_step(current_card):
         print('You took:')
         print(adding_card)
 
-        if adding_card.value == current_card.value or adding_card.color == current_card.color or adding_card.value == 'color': #when adding card and we put it 
+        if adding_card.value == current_card.value or adding_card.color == current_card.color or adding_card.value == 'color' or adding_card.value == 'add-4-color': #when adding card and we put it 
             current_card = adding_card
             left_cards.append(adding_card)
 
             if adding_card.value == 'skip':
                 print(adding_card)
-                left_cards.append(adding_card)
+                #left_cards.append(adding_card)
                 current_card = player_step(current_card)
 
             if adding_card.value == 'add-2':
                 print(adding_card)
                 count_add_cards[0] = count_add_cards[0] + 2
-                left_cards.append(adding_card)
-                current_card = adding_card
+                #left_cards.append(adding_card)
+                #current_card = adding_card
             
-            if adding_card.value == 'color':
+            if adding_card.value == 'color' or adding_card.value == 'add-4-color':
                 print(adding_card)
                 print('Please, choose a color. Red(r), Green(g), Blue(b), or Yellow(y).')
                 color = input()
@@ -273,7 +289,13 @@ def player_step(current_card):
                 elif color == 'b':
                     current_card.color = 'blue'
                 elif color == 'y':
-                    current_card.color = 'yellow'    
+                    current_card.color = 'yellow' 
+
+            if adding_card.value == 'add-4-color':
+                count_add_cards[0] = count_add_cards[0] + 4
+                # left_cards.append(adding_card)
+                # current_card = adding_card
+               
         else:
             player_cards.append(adding_card)
             return current_card #Пропуск хода
@@ -305,6 +327,22 @@ def player_step(current_card):
             elif color == 'y':
                 current_card.color = 'yellow'
 
+        if current_card.value == 'add-4-color':
+            count_add_cards[0] = count_add_cards[0] + 4 
+            print('Please, choose a color. Red(r), Green(g), Blue(b), or Yellow(y).')
+            color = input()
+            while color != 'r' and color != 'g' and color != 'b' and color != 'y':
+                print('Wrong color, please choose different color.')
+                color = input()
+            if color == 'r':
+                current_card.color = 'red'
+            elif color == 'g':
+                current_card.color = 'green'
+            elif color == 'b':
+                current_card.color = 'blue'
+            elif color == 'y':
+                current_card.color = 'yellow' 
+                
     return current_card
 
 
