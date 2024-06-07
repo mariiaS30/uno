@@ -161,6 +161,7 @@ player_cards = create_deck(cards)
 bot_cards = create_deck(cards)
 
 
+
 current_card = random.choice(cards)
 while current_card.value == 'skip' or current_card.value == 'add-2' or current_card.value == 'color' or current_card.value == 'add-4-color':
     current_card = random.choice(cards)
@@ -342,7 +343,7 @@ def player_step(current_card):
                 current_card.color = 'blue'
             elif color == 'y':
                 current_card.color = 'yellow' 
-                
+
     return current_card
 
 
@@ -367,10 +368,31 @@ def bot_step(current_card):
             # print(adding_card)
         count_add_cards[0] = 0
         return current_card
+    
+    if current_card.value == 'add-4-color'and count_add_cards[0] != 0:
+        for i in range (len(bot_cards)):
+            if bot_cards[i].value == 'add-4-color': #ответная +4
+                current_card = bot_cards[i]
+                bot_cards.remove(bot_cards[i])
+                left_cards.append(current_card)
+                count_add_cards[0] = count_add_cards[0] + 4
+                color = random.choice(['red', 'green', 'blue', 'yellow'])
+                current_card.color = color
+                return current_card
+        
+        for i in range (count_add_cards[0]): #бот берёт карты '+4'
+            adding_card = random.choice(cards)
+            cards.remove(adding_card)
+            bot_cards.append(adding_card)
+            # print('Bot took:')
+            # print(adding_card)
+        count_add_cards[0] = 0
+        return current_card
+
 
 
     for i in range (len(bot_cards)):
-        if bot_cards[i].value == current_card.value or bot_cards[i].color == current_card.color or bot_cards[i].value == 'color':
+        if bot_cards[i].value == current_card.value or bot_cards[i].color == current_card.color or bot_cards[i].value == 'color' or bot_cards[i].value == 'add-4-color':
             current_card = bot_cards[i]
             bot_cards.remove(bot_cards[i])
             left_cards.append(current_card)
@@ -383,13 +405,18 @@ def bot_step(current_card):
             if current_card.value == 'color':
                 color = random.choice(['red', 'green', 'blue', 'yellow'])
                 current_card.color = color
+
+            if bot_cards[i].value == 'add-4-color':
+                count_add_cards[0] = count_add_cards[0] + 4
+                color = random.choice(['red', 'green', 'blue', 'yellow'])
+                current_card.color = color
             return current_card
 
     adding_card = random.choice(cards) #у бота нет карт для хода
     cards.remove(adding_card)
     # print('Bot took')
     # print(adding_card)
-    if adding_card.value == current_card.value or adding_card.color == current_card.color or adding_card.value == 'color':
+    if adding_card.value == current_card.value or adding_card.color == current_card.color or adding_card.value == 'color' or adding_card.value == 'add-4-color':
         left_cards.append(adding_card)
         if adding_card.value == 'skip':
             print(adding_card)
@@ -401,6 +428,11 @@ def bot_step(current_card):
         if adding_card.value == 'color':
             color = random.choice(['red', 'green', 'blue', 'yellow'])
             current_card.color = color
+        if adding_card.value == 'add-4-color':
+            current_card = adding_card
+            count_add_cards[0] = count_add_cards[0] + 4
+            color = random.choice(['red', 'green', 'blue', 'yellow'])
+            current_card.color = color 
         return current_card
 
     else:
@@ -427,7 +459,8 @@ while len(player_cards) != 0 and len(bot_cards) != 0:
     current_card = bot_step(current_card)
     print('Playing card')    
     print(current_card)
-    #showing_cards(bot_cards, 'Bot')
+    # print('bot cards')
+    # showing_cards(bot_cards, 'Bot')
     #showing_cards(left_cards, 'left')
     
 if len(player_cards) == 0:
@@ -436,4 +469,6 @@ else:
     print('Bot won!')   
 
 
-#Добавить доп карты. Добавить картинки.
+#Добавить доп карты. Добавить картинки. 
+#Внедрить боту + 4.
+#Сделать небольшую программу с картинками.
